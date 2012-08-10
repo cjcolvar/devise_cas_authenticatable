@@ -5,7 +5,7 @@ module Devise
     class CasAuthenticatable < Base
       # True if the mapping supports authenticate_with_cas_ticket.
       def valid?
-        mapping.to.respond_to?(:authenticate_with_cas_ticket) && params[:ticket]
+        mapping.to.respond_to?(:authenticate_with_cas_ticket) && params[:casticket]
       end
       
       # Try to authenticate a user using the CAS ticket passed in params.
@@ -39,7 +39,7 @@ module Devise
       protected
       
       def read_ticket(params)
-        ticket = params[:ticket]
+        ticket = params[:casticket]
         return nil unless ticket
         
         service_url = ::Devise.cas_service_url(request.url, mapping)
